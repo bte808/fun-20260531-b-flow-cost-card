@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A local-first AI workflow cost and latency forecaster for small automation plans."
+    />
+    <title>FlowCost Card</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local-first estimator</p>
+          <h1>FlowCost Card</h1>
+        </div>
+        <div class="actions">
+          <button type="button" data-testid="reset-sample">Reset sample</button>
+          <button type="button" class="primary" data-testid="copy-report">Copy report</button>
+        </div>
+      </header>
+
+      <section class="control-band" aria-label="Workflow settings">
+        <label>
+          <span>Workflow</span>
+          <input data-testid="workflow-name" type="text" autocomplete="off" />
+        </label>
+        <label>
+          <span>Runs/day</span>
+          <input data-testid="runs-per-day" type="number" min="0" step="1" inputmode="numeric" />
+        </label>
+        <label>
+          <span>Workdays/month</span>
+          <input data-testid="workdays-per-month" type="number" min="0" max="31" step="1" inputmode="numeric" />
+        </label>
+        <span class="status" data-testid="status" role="status">Ready</span>
+      </section>
+
+      <section class="metrics" data-testid="summary" aria-label="Workflow summary"></section>
+
+      <section class="workspace">
+        <div class="steps-panel">
+          <div class="panel-heading">
+            <h2>Steps</h2>
+            <button type="button" data-testid="add-step">+ Add step</button>
+          </div>
+          <div class="step-grid-header" aria-hidden="true">
+            <span>Name</span>
+            <span>Type</span>
+            <span>Group</span>
+            <span>Count</span>
+            <span>In tok</span>
+            <span>Out tok</span>
+            <span>In $/M</span>
+            <span>Out $/M</span>
+            <span>Fixed $</span>
+            <span>P50s</span>
+            <span>P95s</span>
+            <span>Note</span>
+            <span></span>
+          </div>
+          <div class="step-list" data-testid="step-list"></div>
+        </div>
+
+        <aside class="report-panel" aria-label="Report">
+          <div class="panel-heading">
+            <h2>Report</h2>
+            <div class="actions compact">
+              <button type="button" data-testid="download-csv">CSV</button>
+              <button type="button" data-testid="download-json">JSON</button>
+            </div>
+          </div>
+          <ul class="warnings" data-testid="warnings"></ul>
+          <textarea data-testid="report-output" readonly spellcheck="false"></textarea>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>

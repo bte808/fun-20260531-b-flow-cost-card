@@ -1,0 +1,395 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --surface-strong: #f0f4ee;
+  --ink: #1b2420;
+  --muted: #65716a;
+  --line: #d8ded6;
+  --blue: #315fc1;
+  --green: #167355;
+  --amber: #a35f00;
+  --red: #b33b45;
+  --shadow: 0 18px 40px rgba(28, 42, 35, 0.09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--blue);
+}
+
+button.primary {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.app-shell {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 18px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 4.6rem);
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.actions.compact button {
+  min-height: 34px;
+  padding: 0 12px;
+}
+
+.control-band {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) repeat(2, minmax(120px, 0.45fr)) auto;
+  gap: 10px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+}
+
+input,
+select {
+  height: 38px;
+  padding: 0 9px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(49, 95, 193, 0.25);
+  border-color: var(--blue);
+}
+
+.status {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border: 1px solid #c7dacd;
+  border-radius: 7px;
+  background: var(--surface-strong);
+  color: var(--green);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.metric {
+  display: grid;
+  gap: 8px;
+  min-height: 92px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--blue);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.metric span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.metric strong {
+  align-self: end;
+  overflow-wrap: anywhere;
+  font-size: clamp(1rem, 2vw, 1.45rem);
+}
+
+.metric-month,
+.metric-saved {
+  border-left-color: var(--green);
+}
+
+.metric-latency {
+  border-left-color: var(--amber);
+}
+
+.metric-bottleneck {
+  border-left-color: var(--red);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(360px, 0.75fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.steps-panel,
+.report-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 58px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.steps-panel {
+  overflow: hidden;
+}
+
+.step-grid-header,
+.step-row {
+  display: grid;
+  grid-template-columns:
+    minmax(170px, 1.5fr) 92px 68px 68px 92px 92px 82px 82px 82px 70px 70px minmax(120px, 1fr)
+    42px;
+  gap: 8px;
+  align-items: center;
+  min-width: 1120px;
+}
+
+.step-grid-header {
+  padding: 10px 12px;
+  background: #f7faf6;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.step-list {
+  overflow-x: auto;
+}
+
+.step-row {
+  padding: 10px 12px;
+  border-top: 1px solid #edf1eb;
+}
+
+.step-row:first-child {
+  border-top: 0;
+}
+
+.step-row:focus-within {
+  background: #fbfcf9;
+}
+
+.icon-button {
+  width: 38px;
+  min-height: 38px;
+  padding: 0;
+  color: var(--red);
+}
+
+.report-panel {
+  position: sticky;
+  top: 14px;
+}
+
+.warnings {
+  display: grid;
+  gap: 6px;
+  min-height: 54px;
+  margin: 0;
+  padding: 12px 16px 0 28px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+textarea {
+  display: block;
+  min-height: 440px;
+  margin: 12px;
+  width: calc(100% - 24px);
+  padding: 12px;
+  resize: vertical;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 1180px) {
+  .metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .report-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 14px;
+  }
+
+  .topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .topbar .actions,
+  .topbar button {
+    width: 100%;
+  }
+
+  .control-band {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .control-band label:first-child,
+  .status {
+    grid-column: 1 / -1;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .metric {
+    min-height: 86px;
+  }
+
+  .step-grid-header {
+    display: none;
+  }
+
+  .step-list {
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+    overflow-x: visible;
+  }
+
+  .step-row {
+    grid-template-columns: 1fr 1fr;
+    min-width: 0;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .step-row input[name="name"],
+  .step-row input[name="note"] {
+    grid-column: 1 / -1;
+  }
+
+  .icon-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  textarea {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 430px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .control-band {
+    grid-template-columns: 1fr;
+  }
+}

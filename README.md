@@ -2,6 +2,8 @@
 
 FlowCost Card is a local-first AI workflow cost and latency forecaster. It helps turn a rough automation idea into a small run-rate card that can be copied into a planning note, README, issue, or launch checklist.
 
+Live demo: <https://bte808.github.io/fun-20260531-b-flow-cost-card/>
+
 ## Why this exists
 
 Small AI workflows often start cheap and fast, then become expensive or slow after retries, tool calls, higher traffic, or a few oversized prompts. FlowCost Card makes the hidden run-rate visible before you ship.

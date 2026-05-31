@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a focused improvement that keeps FlowCost Card local-first.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: What workflow would this help estimate?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the smallest useful version.
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Fit check
+      options:
+        - label: This can work without accounts, tracking, or a backend service.
+        - label: This can keep runtime dependencies empty or very small.
+        - label: This helps users inspect assumptions rather than hide them.
+

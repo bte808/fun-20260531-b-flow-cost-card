@@ -1,7 +1,7 @@
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 const port = Number(process.env.FLOWCOST_PORT || 5179);
 const targetUrl = process.env.FLOWCOST_URL || `http://127.0.0.1:${port}/`;
@@ -212,8 +212,14 @@ async function runViewportCheck(cdp, viewport) {
     { format: "png", captureBeyondViewport: false },
     sessionId
   );
-  const screenshot = join(tmpdir(), `flowcost-${viewport.name}.png`);
-  await writeFile(screenshot, Buffer.from(screenshotResult.data, "base64"));
+  const requestedScreenshot =
+    viewport.name === "desktop" ? process.env.SAVE_SCREENSHOT : process.env.SAVE_MOBILE_SCREENSHOT;
+  const screenshot = requestedScreenshot || join(tmpdir(), `flowcost-${viewport.name}.png`);
+  const screenshotBuffer = Buffer.from(screenshotResult.data, "base64");
+  if (requestedScreenshot) {
+    await mkdir(dirname(requestedScreenshot), { recursive: true });
+  }
+  await writeFile(screenshot, screenshotBuffer);
 
   const ok =
     details.title.includes("FlowCost") &&

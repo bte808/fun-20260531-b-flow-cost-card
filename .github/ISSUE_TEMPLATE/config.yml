@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Live demo
+    url: https://bte808.github.io/fun-20260531-b-flow-cost-card/
+    about: Try the current static build before filing a UI or workflow issue.
+

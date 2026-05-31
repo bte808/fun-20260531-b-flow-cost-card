@@ -1,0 +1,36 @@
+name: Calculation case
+description: Share a workflow estimate that should be checked, tested, or documented.
+title: "[Case]: "
+labels: ["calculation", "good first issue"]
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow shape
+      description: Describe the steps, counts, rates, fixed costs, and latency assumptions.
+      placeholder: |
+        Runs/day:
+        Workdays/month:
+        Step 1:
+        Step 2:
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result or question
+      description: What should the card show, or what feels confusing?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Main area
+      options:
+        - Cost math
+        - Latency grouping
+        - Markdown report
+        - CSV or JSON export
+        - Warning text
+        - Template idea
+

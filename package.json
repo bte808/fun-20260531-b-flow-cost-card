@@ -1,12 +1,14 @@
 {
   "name": "fun-20260531-b-flow-cost-card",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Local-first AI workflow cost and latency forecaster.",
   "type": "module",
   "private": false,
   "scripts": {
-    "test": "node tests/core.test.mjs && node scripts/check.mjs",
+    "test": "node tests/core.test.mjs && npm run check",
+    "check": "node scripts/check.mjs",
     "verify:browser": "node scripts/verify-browser.mjs",
+    "validate": "npm test && npm run verify:browser",
     "serve": "python3 -m http.server 5179"
   },
   "keywords": [

@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a UI, export, persistence, or verification problem.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the demo
+        2. Change runs/day to ...
+        3. Click ...
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Chrome 126 on macOS, Safari on iPhone, etc.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra context
+

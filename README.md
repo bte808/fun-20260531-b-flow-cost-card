@@ -1,8 +1,28 @@
 # FlowCost Card
 
+[![Live demo](https://img.shields.io/badge/demo-GitHub%20Pages-0969da)](https://bte808.github.io/fun-20260531-b-flow-cost-card/)
+![Runtime dependencies](https://img.shields.io/badge/runtime%20deps-0-2ea44f)
+![Static site](https://img.shields.io/badge/site-static-6f42c1)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 FlowCost Card is a local-first AI workflow cost and latency forecaster. It helps turn a rough automation idea into a small run-rate card that can be copied into a planning note, README, issue, or launch checklist.
 
 Live demo: <https://bte808.github.io/fun-20260531-b-flow-cost-card/>
+
+![FlowCost Card demo](docs/demo.png)
+
+## Project status
+
+FlowCost Card is a small, maintained static tool at `0.1.0`. The current focus is keeping the calculation core understandable, collecting realistic workflow templates, and making the browser verification strict enough that mobile layout and report export regressions are caught before release.
+
+Maintenance signals:
+
+- MIT licensed.
+- No runtime dependencies.
+- Live GitHub Pages demo.
+- Desktop and `390 x 844` mobile browser verification.
+- Issue templates for bugs, calculation cases, and feature requests.
+- CONTRIBUTING and SECURITY docs for external review.
 
 ## Why this exists
 
@@ -52,6 +72,7 @@ The default sample estimates a support-answer agent:
 
 ```bash
 npm test
+npm run verify:browser
 npm run serve
 ```
 
@@ -77,17 +98,37 @@ Local checks:
 ```bash
 npm test
 npm run verify:browser
+npm run validate
 git diff --check
 ```
 
 `npm test` runs calculation tests and static wiring checks. `npm run verify:browser` starts a local server, opens temporary headless Chrome sessions, edits the tool at desktop and 390 x 844 mobile sizes, checks the report output, and fails on horizontal overflow.
 
-## Later extensions
+To refresh the README screenshot:
+
+```bash
+SAVE_SCREENSHOT=docs/demo.png npm run verify:browser
+```
+
+## Contributing
+
+Contributions are welcome when they keep the tool local-first, static, and easy to inspect. Good starter work includes adding realistic workflow templates, testing edge cases in the calculation core, tightening mobile layout, or improving the copy in generated Markdown cards.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the local workflow and pull request checklist.
+
+## Roadmap
 
 - Add retry-rate fields per step.
 - Add saved templates for support bots, OCR flows, coding agents, and study assistants.
 - Add an import/export share URL for small plans.
 - Add a cache-savings comparison mode.
+- Add more calculation case tests from real planning notes.
+
+## Security and privacy
+
+FlowCost Card does not need an account, API key, backend service, analytics script, or hosted font. Drafts stay in browser `localStorage`, and exports are generated locally.
+
+See [SECURITY.md](SECURITY.md) for reporting guidance and data-handling expectations.
 
 ## License
 

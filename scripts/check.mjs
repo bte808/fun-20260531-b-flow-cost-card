@@ -8,6 +8,14 @@ const required = [
   "src/flow-cost-core.js",
   "README.md",
   "LICENSE",
+  "CHANGELOG.md",
+  "CONTRIBUTING.md",
+  "SECURITY.md",
+  ".github/ISSUE_TEMPLATE/bug_report.yml",
+  ".github/ISSUE_TEMPLATE/calculation_case.yml",
+  ".github/ISSUE_TEMPLATE/feature_request.yml",
+  ".github/ISSUE_TEMPLATE/config.yml",
+  "docs/demo.png",
   "favicon.svg"
 ];
 
@@ -30,8 +38,12 @@ assert.ok(css.includes("@media (max-width: 720px)"), "mobile breakpoint exists")
 assert.ok(!css.includes("letter-spacing: -"), "no negative letter spacing");
 
 const readme = await readFile("README.md", "utf8");
+assert.ok(readme.includes("github.io/fun-20260531-b-flow-cost-card"), "README links the live demo");
+assert.ok(readme.includes("Project status"), "README explains project status");
 assert.ok(readme.includes("Why it may be worth starring"), "README explains star value");
 assert.ok(readme.includes("Inspiration"), "README records inspiration sources");
+assert.ok(readme.includes("Roadmap"), "README includes a roadmap");
+assert.ok(readme.includes("Contributing"), "README points contributors to the workflow");
 assert.ok(readme.includes("npm run verify:browser"), "README includes browser verification");
 
 console.log("static check ok");

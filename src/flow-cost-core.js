@@ -1,4 +1,4 @@
-export const SAMPLE_STEPS = [
+const SUPPORT_ANSWER_STEPS = [
   {
     id: "classify",
     name: "Classify request",
@@ -60,6 +60,320 @@ export const SAMPLE_STEPS = [
     note: "guardrail"
   }
 ];
+
+export const WORKFLOW_TEMPLATES = [
+  {
+    id: "support-answer-agent",
+    name: "Support answer agent",
+    runsPerDay: 35,
+    workdaysPerMonth: 22,
+    steps: SUPPORT_ANSWER_STEPS
+  },
+  {
+    id: "coding-agent-review-loop",
+    name: "Coding agent review loop",
+    runsPerDay: 18,
+    workdaysPerMonth: 22,
+    steps: [
+      {
+        id: "diff-scan",
+        name: "Scan pull request diff",
+        type: "model",
+        group: "1",
+        count: 1,
+        inputTokens: 4200,
+        outputTokens: 320,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 2.8,
+        p95Seconds: 7.2,
+        note: "risk map"
+      },
+      {
+        id: "parallel-checks",
+        name: "Run focused checks",
+        type: "tool",
+        group: "2",
+        count: 3,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0.002,
+        p50Seconds: 2.5,
+        p95Seconds: 8,
+        note: "parallel jobs"
+      },
+      {
+        id: "patch-review",
+        name: "Patch review summary",
+        type: "model",
+        group: "3",
+        count: 1,
+        inputTokens: 7600,
+        outputTokens: 1100,
+        inputCostPerM: 0.35,
+        outputCostPerM: 1.4,
+        fixedCost: 0,
+        p50Seconds: 6.5,
+        p95Seconds: 18,
+        note: "main output"
+      },
+      {
+        id: "verify-fix",
+        name: "Verify proposed fix",
+        type: "tool",
+        group: "4",
+        count: 2,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0.003,
+        p50Seconds: 3.2,
+        p95Seconds: 12,
+        note: "test rerun"
+      },
+      {
+        id: "maintainer-pass",
+        name: "Maintainer pass",
+        type: "human",
+        group: "5",
+        count: 1,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0,
+        p50Seconds: 8,
+        p95Seconds: 20,
+        note: "final judgement"
+      }
+    ]
+  },
+  {
+    id: "ocr-document-processor",
+    name: "OCR document processor",
+    runsPerDay: 40,
+    workdaysPerMonth: 20,
+    steps: [
+      {
+        id: "file-check",
+        name: "Validate upload",
+        type: "other",
+        group: "1",
+        count: 1,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0,
+        p50Seconds: 0.4,
+        p95Seconds: 1.2,
+        note: "local rule"
+      },
+      {
+        id: "ocr-pages",
+        name: "OCR page batch",
+        type: "tool",
+        group: "2",
+        count: 12,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0.0025,
+        p50Seconds: 0.9,
+        p95Seconds: 1.8,
+        note: "fixed cost"
+      },
+      {
+        id: "normalize-text",
+        name: "Normalize extracted text",
+        type: "model",
+        group: "3",
+        count: 1,
+        inputTokens: 8500,
+        outputTokens: 1200,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 5.4,
+        p95Seconds: 12,
+        note: "field cleanup"
+      },
+      {
+        id: "confidence-check",
+        name: "Confidence check",
+        type: "model",
+        group: "4",
+        count: 1,
+        inputTokens: 2600,
+        outputTokens: 240,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 1.8,
+        p95Seconds: 5.5,
+        note: "flag errors"
+      },
+      {
+        id: "exception-review",
+        name: "Exception review",
+        type: "human",
+        group: "5",
+        count: 0.2,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0,
+        p50Seconds: 25,
+        p95Seconds: 60,
+        note: "flagged docs"
+      }
+    ]
+  },
+  {
+    id: "meeting-notes-summarizer",
+    name: "Meeting notes summarizer",
+    runsPerDay: 12,
+    workdaysPerMonth: 22,
+    steps: [
+      {
+        id: "transcribe",
+        name: "Transcribe recording",
+        type: "tool",
+        group: "1",
+        count: 1,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0.006,
+        p50Seconds: 38,
+        p95Seconds: 75,
+        note: "latency heavy"
+      },
+      {
+        id: "extract-decisions",
+        name: "Extract decisions",
+        type: "model",
+        group: "2",
+        count: 1,
+        inputTokens: 12000,
+        outputTokens: 900,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 5.8,
+        p95Seconds: 13,
+        note: "low cost"
+      },
+      {
+        id: "draft-recap",
+        name: "Draft recap",
+        type: "model",
+        group: "3",
+        count: 1,
+        inputTokens: 6500,
+        outputTokens: 1400,
+        inputCostPerM: 0.35,
+        outputCostPerM: 1.4,
+        fixedCost: 0,
+        p50Seconds: 5.1,
+        p95Seconds: 14,
+        note: "sendable text"
+      },
+      {
+        id: "send-checklist",
+        name: "Send checklist",
+        type: "human",
+        group: "4",
+        count: 1,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0,
+        p50Seconds: 3,
+        p95Seconds: 8,
+        note: "owner pass"
+      }
+    ]
+  },
+  {
+    id: "study-assistant",
+    name: "Study assistant",
+    runsPerDay: 28,
+    workdaysPerMonth: 18,
+    steps: [
+      {
+        id: "retrieve-notes",
+        name: "Retrieve notes",
+        type: "tool",
+        group: "1",
+        count: 4,
+        inputTokens: 0,
+        outputTokens: 0,
+        inputCostPerM: 0,
+        outputCostPerM: 0,
+        fixedCost: 0.001,
+        p50Seconds: 0.8,
+        p95Seconds: 2.4,
+        note: "parallel chunks"
+      },
+      {
+        id: "explain-topic",
+        name: "Explain topic",
+        type: "model",
+        group: "2",
+        count: 1,
+        inputTokens: 5200,
+        outputTokens: 1100,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 4,
+        p95Seconds: 9.5,
+        note: "teaching pass"
+      },
+      {
+        id: "generate-quiz",
+        name: "Generate quiz",
+        type: "model",
+        group: "3",
+        count: 1,
+        inputTokens: 4100,
+        outputTokens: 800,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 3.1,
+        p95Seconds: 8,
+        note: "practice set"
+      },
+      {
+        id: "grade-attempt",
+        name: "Grade attempt",
+        type: "model",
+        group: "4",
+        count: 1,
+        inputTokens: 3000,
+        outputTokens: 360,
+        inputCostPerM: 0.15,
+        outputCostPerM: 0.6,
+        fixedCost: 0,
+        p50Seconds: 2.2,
+        p95Seconds: 6,
+        note: "feedback loop"
+      }
+    ]
+  }
+];
+
+export const SAMPLE_STEPS = WORKFLOW_TEMPLATES[0].steps;
 
 const TYPE_LABELS = {
   model: "Model",

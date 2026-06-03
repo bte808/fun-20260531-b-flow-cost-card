@@ -29,6 +29,13 @@
           <span>Workflow</span>
           <input data-testid="workflow-name" type="text" autocomplete="off" />
         </label>
+        <div class="field template-field">
+          <span>Template</span>
+          <div class="template-picker">
+            <select data-testid="workflow-template" aria-label="Starter template"></select>
+            <button type="button" data-testid="load-template">Load</button>
+          </div>
+        </div>
         <label>
           <span>Runs/day</span>
           <input data-testid="runs-per-day" type="number" min="0" step="1" inputmode="numeric" />

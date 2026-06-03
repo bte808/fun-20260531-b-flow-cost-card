@@ -185,6 +185,12 @@ async function runViewportCheck(cdp, viewport) {
     `(() => {
       const byTest = (id) => document.querySelector('[data-testid="' + id + '"]');
       byTest('reset-sample').click();
+      byTest('workflow-template').value = 'coding-agent-review-loop';
+      byTest('workflow-template').dispatchEvent(new Event('change', { bubbles: true }));
+      byTest('load-template').click();
+      const templateRows = document.querySelectorAll('.step-row').length;
+      const templateReport = byTest('report-output').value;
+      byTest('reset-sample').click();
       byTest('runs-per-day').value = '24';
       byTest('runs-per-day').dispatchEvent(new Event('input', { bubbles: true }));
       byTest('add-step').click();
@@ -197,6 +203,8 @@ async function runViewportCheck(cdp, viewport) {
       return {
         title: document.title,
         rows: document.querySelectorAll('.step-row').length,
+        templateRows,
+        templateLoaded: byTest('workflow-name').value === 'Support answer agent' && templateReport.includes('Patch review summary'),
         reportHasCost: report.includes('Cost/month:'),
         reportHasNewStep: report.includes('Cache lookup'),
         metricCount: document.querySelectorAll('.metric').length,
@@ -224,6 +232,8 @@ async function runViewportCheck(cdp, viewport) {
   const ok =
     details.title.includes("FlowCost") &&
     details.rows === 5 &&
+    details.templateRows === 5 &&
+    details.templateLoaded &&
     details.reportHasCost &&
     details.reportHasNewStep &&
     details.metricCount === 6 &&

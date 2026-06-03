@@ -104,7 +104,7 @@ h2 {
 
 .control-band {
   display: grid;
-  grid-template-columns: minmax(260px, 1.4fr) repeat(2, minmax(120px, 0.45fr)) auto;
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, 1fr) repeat(2, minmax(110px, 0.38fr)) auto;
   gap: 10px;
   align-items: end;
   padding: 14px;
@@ -114,12 +114,23 @@ h2 {
   box-shadow: var(--shadow);
 }
 
-label {
+label,
+.field {
   display: grid;
   gap: 6px;
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 800;
+}
+
+.template-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.template-picker button {
+  padding: 0 12px;
 }
 
 input,
@@ -337,6 +348,7 @@ textarea {
   }
 
   .control-band label:first-child,
+  .template-field,
   .status {
     grid-column: 1 / -1;
   }

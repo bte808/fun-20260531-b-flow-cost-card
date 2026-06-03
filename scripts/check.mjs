@@ -31,6 +31,7 @@ assert.equal(pkg.private, false, "package is publishable metadata");
 const html = await readFile("index.html", "utf8");
 assert.ok(html.includes('type="module" src="src/app.js"'), "HTML loads app module");
 assert.ok(html.includes("data-testid=\"step-list\""), "HTML exposes testable step list");
+assert.ok(html.includes("data-testid=\"workflow-template\""), "HTML exposes starter templates");
 assert.ok(html.includes("favicon.svg"), "favicon is wired");
 
 const css = await readFile("styles.css", "utf8");
@@ -43,6 +44,7 @@ assert.ok(readme.includes("Project status"), "README explains project status");
 assert.ok(readme.includes("Why it may be worth starring"), "README explains star value");
 assert.ok(readme.includes("Inspiration"), "README records inspiration sources");
 assert.ok(readme.includes("Roadmap"), "README includes a roadmap");
+assert.ok(readme.includes("Starter templates"), "README documents starter templates");
 assert.ok(readme.includes("Contributing"), "README points contributors to the workflow");
 assert.ok(readme.includes("npm run verify:browser"), "README includes browser verification");
 

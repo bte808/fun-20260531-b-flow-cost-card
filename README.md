@@ -13,7 +13,7 @@ Live demo: <https://bte808.github.io/fun-20260531-b-flow-cost-card/>
 
 ## Project status
 
-FlowCost Card is a small, maintained static tool at `0.1.0`. The current focus is keeping the calculation core understandable, collecting realistic workflow templates, and making the browser verification strict enough that mobile layout and report export regressions are caught before release.
+FlowCost Card is a small, maintained static tool at `0.1.1`. The current focus is keeping the calculation core understandable, expanding realistic workflow templates, and making the browser verification strict enough that mobile layout and report export regressions are caught before release.
 
 Maintenance signals:
 
@@ -39,6 +39,7 @@ Only the idea shape was borrowed. The code, UI, sample workflow, and wording in 
 ## What it does
 
 - Models each workflow step with count, token volume, token prices, fixed per-call cost, and P50/P95 latency.
+- Loads starter templates for common small AI workflows.
 - Groups steps that can run in parallel, then estimates wall-clock P50/P95 instead of only sequential time.
 - Shows cost per run, per day, and per month.
 - Points out the biggest cost and latency bottlenecks.
@@ -67,6 +68,18 @@ The default sample estimates a support-answer agent:
 | Search internal docs | Tool | 2 | 2 | fixed per-call cost | can be cached |
 | Draft answer | Model | 3 | 1 | largest token spend | main bottleneck |
 | Policy check | Model | 4 | 1 | guardrail cost | final gate |
+
+## Starter templates
+
+The template picker includes synthetic starting points for:
+
+- Support answer agent.
+- Coding agent review loop.
+- OCR document processor.
+- Meeting notes summarizer.
+- Study assistant.
+
+Templates are intentionally small and sanitized. They are starting assumptions for planning, not vendor-specific price guidance.
 
 ## Run locally
 
@@ -119,7 +132,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the local workflow and pull request c
 ## Roadmap
 
 - Add retry-rate fields per step.
-- Add saved templates for support bots, OCR flows, coding agents, and study assistants.
 - Add an import/export share URL for small plans.
 - Add a cache-savings comparison mode.
 - Add more calculation case tests from real planning notes.

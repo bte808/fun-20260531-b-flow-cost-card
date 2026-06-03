@@ -1,6 +1,6 @@
 {
   "name": "fun-20260531-b-flow-cost-card",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local-first AI workflow cost and latency forecaster.",
   "type": "module",
   "private": false,

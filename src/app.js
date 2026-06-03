@@ -1,5 +1,5 @@
 import {
-  SAMPLE_STEPS,
+  WORKFLOW_TEMPLATES,
   calculateWorkflow,
   formatDuration,
   formatMoney,
@@ -12,6 +12,8 @@ const STORAGE_KEY = "flow-cost-card-state-v1";
 const state = loadState();
 const elements = {
   workflowName: document.querySelector("[data-testid='workflow-name']"),
+  workflowTemplate: document.querySelector("[data-testid='workflow-template']"),
+  loadTemplate: document.querySelector("[data-testid='load-template']"),
   runsPerDay: document.querySelector("[data-testid='runs-per-day']"),
   workdaysPerMonth: document.querySelector("[data-testid='workdays-per-month']"),
   stepList: document.querySelector("[data-testid='step-list']"),
@@ -34,6 +36,19 @@ function bindControls() {
     state.workflowName = elements.workflowName.value;
     saveState();
     renderResults();
+  });
+
+  elements.workflowTemplate.addEventListener("change", () => {
+    state.selectedTemplate = elements.workflowTemplate.value;
+    saveState();
+  });
+
+  elements.loadTemplate.addEventListener("click", () => {
+    const template = getTemplateById(elements.workflowTemplate.value);
+    Object.assign(state, stateFromTemplate(template));
+    saveState();
+    renderAll();
+    setStatus("Template loaded");
   });
 
   elements.runsPerDay.addEventListener("input", () => {
@@ -111,6 +126,7 @@ function handleStepEdit(event) {
 
 function renderAll() {
   elements.workflowName.value = state.workflowName;
+  renderTemplateOptions();
   elements.runsPerDay.value = state.runsPerDay;
   elements.workdaysPerMonth.value = state.workdaysPerMonth;
   renderStepRows();
@@ -182,12 +198,28 @@ function loadState() {
 }
 
 function getDefaultState() {
+  return stateFromTemplate(WORKFLOW_TEMPLATES[0]);
+}
+
+function stateFromTemplate(template) {
   return {
-    workflowName: "Support answer agent",
-    runsPerDay: 35,
-    workdaysPerMonth: 22,
-    steps: SAMPLE_STEPS.map((step) => ({ ...step }))
+    selectedTemplate: template.id,
+    workflowName: template.name,
+    runsPerDay: template.runsPerDay,
+    workdaysPerMonth: template.workdaysPerMonth,
+    steps: template.steps.map((step) => ({ ...step }))
   };
+}
+
+function getTemplateById(id) {
+  return WORKFLOW_TEMPLATES.find((template) => template.id === id) || WORKFLOW_TEMPLATES[0];
+}
+
+function renderTemplateOptions() {
+  const selected = state.selectedTemplate || WORKFLOW_TEMPLATES[0].id;
+  elements.workflowTemplate.innerHTML = WORKFLOW_TEMPLATES.map((template) =>
+    option(template.id, template.name, selected)
+  ).join("");
 }
 
 function makeBlankStep(position) {

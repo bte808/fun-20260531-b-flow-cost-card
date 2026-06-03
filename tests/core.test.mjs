@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   SAMPLE_STEPS,
+  WORKFLOW_TEMPLATES,
   calculateWorkflow,
   formatDuration,
   formatMoney,
@@ -25,6 +26,18 @@ assert.equal(result.groups.length, 4, "sample uses four serial groups");
 assert.equal(result.totals.parallelP95Saved, 0, "serial groups do not claim saved latency");
 assert.equal(result.bottleneckCost.name, "Draft answer");
 assert.equal(result.bottleneckLatency.name, "Draft answer");
+
+assert.equal(WORKFLOW_TEMPLATES.length, 5, "starter templates are available");
+assert.equal(new Set(WORKFLOW_TEMPLATES.map((template) => template.id)).size, WORKFLOW_TEMPLATES.length);
+
+for (const template of WORKFLOW_TEMPLATES) {
+  const templateInput = { ...template, workflowName: template.name };
+  const templateResult = calculateWorkflow(templateInput);
+  assert.ok(templateResult.steps.length >= 4, `${template.name} has enough steps`);
+  assert.ok(templateResult.totals.costPerRun >= 0, `${template.name} cost is numeric`);
+  assert.ok(makeMarkdownReport(templateInput, templateResult).includes(`# ${template.name} cost card`));
+  assert.ok(toCsv(templateResult).includes(templateResult.steps[0].name));
+}
 
 const parallel = calculateWorkflow({
   ...base,
